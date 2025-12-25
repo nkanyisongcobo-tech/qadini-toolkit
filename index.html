@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Professional Toolkit</title>
+
+    <style>
+        body {
+            background: #0f172a;
+            color: white;
+            font-family: Arial, sans-serif;
+            padding: 40px;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: auto;
+            background: #020617;
+            padding: 30px;
+            border-radius: 12px;
+        }
+
+        h1 {
+            color: #38bdf8;
+            text-align: center;
+        }
+
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 6px;
+            border: none;
+            font-size: 16px;
+        }
+
+        button {
+            background: #38bdf8;
+            cursor: pointer;
+        }
+
+        .result {
+            margin-top: 15px;
+            background: #0f172a;
+            padding: 12px;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Qadini Architecture</h1>
+
+    <input type="text" id="client" placeholder="Client Name">
+    <input type="number" id="size" placeholder="Project Size (m²)">
+    <input type="number" id="rate" placeholder="Rate per m²">
+
+    <button onclick="calculate()">Generate Quote</button>
+
+    <div class="result" id="output"></div>
+</div>
+
+<script>
+function calculate() {
+    let client = document.getElementById("client").value;
+    let size = Number(document.getElementById("size").value);
+    let rate = Number(document.getElementById("rate").value);
+
+    let fee = size * rate;
+    let vat = fee * 0.15;
+    let total = fee + vat;
+
+    function money(x) {
+        return "R " + x.toLocaleString("en-ZA", { minimumFractionDigits: 2 });
+    }
+
+    document.getElementById("output").innerHTML = `
+        <strong>Client:</strong> ${client}<br>
+        <strong>Project Size:</strong> ${size} m²<br>
+        <strong>Rate:</strong> ${money(rate)} per m²<br><br>
+
+        <strong>Subtotal:</strong> ${money(fee)}<br>
+        <strong>VAT (15%):</strong> ${money(vat)}<br>
+        <hr>
+        <strong>Total Fee:</strong> ${money(total)}
+    `;
+}
+</script>
+
+
+</body>
+</html>
